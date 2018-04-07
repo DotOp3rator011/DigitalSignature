@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Index</h1>
+{% if user.is_authenticated %}
+<h2>{{ user.username }}</h2>
+<h2><a href="{% url 'signature:dashboard' %}">Dashboard</a></h2>
+<h2><a href="{% url 'signature:signature' %}">Signature</a></h2>
+<h2><a href="{% url 'logout' %}?next={% url 'signature:index' %}">Logout</a></h2>
+{% else %}
+<h2><a href="{% url 'login' %}">Login</a></h2>
+<h2><a href="{% url 'signature:register' %}">Register</a></h2>
+{% endif %}
+
+<form name="identify" action="{% url 'signature:identify' %}" method="post">
+    {% csrf_token %}
+    <label>Enter signature to be identified</label><br>
+    <input type="text" name="signature">
+    <button type="submit" name="identify">Identify</button>
+</form>
+
+</body>
+</html>

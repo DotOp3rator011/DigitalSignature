@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<table>
+    <tr>
+        <th>Hash</th>
+        <th>Subject</th>
+        <th>Addressed To</th>
+        <th>Date</th>
+    </tr>
+    {% for us in userSignatures %}
+    <tr>
+        <td>{{ us.hash }}</td>
+        <td>{{ us.subject }}</td>
+        <td>{{ us.addressedTo }}</td>
+        <td>{{ us.date }}</td>
+    </tr>
+    {% endfor %}
+    {% endblock %}
+</table>
+</body>
+</html>
