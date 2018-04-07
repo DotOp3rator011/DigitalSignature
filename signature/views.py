@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from signature.forms import RegisterForm, SignatureForm
+from signature.forms import RegisterForm, SignatureForm, IdentifyForm
 from backend import *
 
 
 def index(request):
-    return render(request, 'signature/index.html')
+    form = IdentifyForm()
+    context = {'form': form}
+    return render(request, 'signature/index.html', context)
 
 
 def register(request):
@@ -45,4 +47,8 @@ def signature(request):
 
 
 def identify(request):
-    return render(request, 'signature/identify.html')
+    context = dict()
+    if request.method == "POST":
+        identity = get_identity(request)
+        context = {"identity": identity.items()}
+    return render(request, 'signature/identify.html', context)

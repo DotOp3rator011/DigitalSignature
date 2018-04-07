@@ -6,6 +6,22 @@ from hashlib import md5
 
 
 # identify
+def get_identity(request):
+    hashText = request.POST.get('hash')
+    try:
+        signature = Signature.objects.get(hash=hashText)
+    except:
+        return {"error": "Signature not found. Please check the value entered"}
+    user = User.objects.get(email=signature.email)
+    identity = {"First Name": user.first_name,
+                "Last Name": user.last_name,
+                "Email": user.email,
+                "Phone": user.userprofile.phone,
+                "Aadhaar": user.userprofile.aadhaar,
+                "Addressed to": signature.addressedTo,
+                "Subject": signature.subject,
+                "Signature": signature.hash}
+    return identity
 
 
 # dashboard

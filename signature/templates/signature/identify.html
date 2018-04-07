@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-
+{% block content %}
+<table>
+    {% for key,value in identity %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+    {% endblock %}
+</table>
 </body>
 </html>

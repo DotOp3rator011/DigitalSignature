@@ -16,12 +16,23 @@
 <h2><a href="{% url 'signature:register' %}">Register</a></h2>
 {% endif %}
 
-<form name="identify" action="{% url 'signature:identify' %}" method="post">
+{% block content %}
+<h2>Sign up</h2>
+<form method="post" action="{% url 'signature:identify' %}">
     {% csrf_token %}
-    <label>Enter signature to be identified</label><br>
-    <input type="text" name="signature">
-    <button type="submit" name="identify">Identify</button>
+    {% for field in form %}
+    Enter signature to identify<br>
+    {{ field }}
+    {% if field.help_text %}
+    <small style="color: grey">{{ field.help_text }}</small>
+    {% endif %}
+    {% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+    {% endfor %}
+    <button type="submit">Identify</button>
 </form>
+{% endblock %}
 
 </body>
 </html>

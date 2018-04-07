@@ -5,20 +5,27 @@ from .models import Signature
 
 
 class RegisterForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=True, help_text='Required.')
-    last_name = forms.CharField(max_length=30, required=True, help_text='Required.')
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-    phone = forms.CharField(max_length=10, required=True, help_text="Required.")
-    aadhaar = forms.CharField(max_length=14, required=True, help_text="Required.")
+    first_name = forms.CharField(max_length=30, required=True,)
+    last_name = forms.CharField(max_length=30, required=True,)
+    email = forms.EmailField(max_length=254, required=True,)
+    phone = forms.CharField(max_length=10, required=True,)
+    aadhaar = forms.CharField(max_length=14, required=True,)
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'phone', 'aadhaar', 'password1', 'password2',)
+        fields = ('username',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'phone',
+                  'aadhaar',
+                  'password1',
+                  'password2',)
 
 
 class SignatureForm(forms.Form):
-    subject = forms.CharField(max_length=100, required=True, help_text='Required.')
-    addressedTo = forms.CharField(max_length=100, required=True, help_text='Required.')
+    subject = forms.CharField(max_length=100, required=True,)
+    addressedTo = forms.CharField(max_length=100, required=True,)
 
     class Meta:
         model = Signature
@@ -31,3 +38,10 @@ class SignatureForm(forms.Form):
                       subject=details["subject"],
                       hash=hashText)
         s.save()
+
+
+class IdentifyForm(forms.Form):
+    hash = forms.CharField(max_length=32, required=True,)
+
+    class Meta:
+        fields = ('Hash',)
